@@ -16,7 +16,7 @@ jobs:
       run: |
         echo ${{ env.claEnabled }}
         echo ${{env.claPush}}
-        echo ::set-env name=test::${{github.head_ref}}
+        if [${{env.claPush}} == 'github.head_ref']; then echo ::set-env name=test::${{github.head_ref}} else echo ::set-env name=test::something fi
     - name: Dump if
       if: ( ${{ success() }} && ${{env.claEnabled}} == true )
       run: |

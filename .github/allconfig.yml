@@ -6,7 +6,8 @@ labelTitle: true
 labelSponsor: true
 assignProjects: true
 
-
+# Where should CLA push to? (github.head_ref || your_branch)
+claPush: something
 # Assign projects config
 DevOps: 1
 Issues: 2
