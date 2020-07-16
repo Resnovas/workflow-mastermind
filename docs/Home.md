@@ -1,85 +1,73 @@
-# We Recently decided that this method of building the bot was not worth our time, and are moving to a completely serverless method. We will keep people informated and will continue to work on the bot. If you want to continue working on or with the old version of our bot, feel free to fork the branch `selfhost`
+# TGTGamer/.github
 
----
-description: >-
-  Smartcloud Artificial Assistant is a software developed by TGT Media Ltd for
-  the open-source community. Designed to be extremely easy to modify and
-  generate new content around.
----
+**This is currently a work in progress. If you have somehow found this while im doing serious updates, drop me a line or open a issue and i will notify you when it's ready to be used**
 
-# Smartcloud Artificial Assistant \(SCAA\)
+This is a .github repository which I use across all my organisations & personal projects. Within this repository, you will find the configuration for many, many things. We choose to use workflows more than bots, however, some have been included to speed things up. If you have any questions or notice a bug, let us know in the issues and we will endeavour to fix them asap.
 
-![](.gitbook/assets/logo.png)
+This project is completely free to use, without any requirements and without warranty.
 
-{% hint style="danger" %}
-_**This software is not release ready. Please do not try to install and instead contact the developers on info@tgtmedia.org for correct installation help and guidance**_
-{% endhint %}
+**You MUST keep clean commit history (ideally squashing your changes, so each commit correspond to single change/feature) for some of these features to work correctly**
 
-#### What is Smartcloud Artificial Assistant?
+## Prerequisite
+To use this collection, you need to ensure that you have the following branches
+- `docs/auto-update` - Used for all automatic updates except changelog
+- `chore/changelog` - Used for automatic changelog creation
 
-Smartcloud Artificial Assistant otherwise known as SCAA, is open-source software for integrating applications and software. We designed for small communities, such as twitch and discord communities, however, are capable of up-scaling at the touch of a button. Our services integrate with Dialogflow to provide artificial intelligence services to those who need it, in a way which is easy to use.
 
-#### Why was it created?
+## Workflows (Git Actions)
 
-When this project started, it was not much more than a discord application communicating between multiple end-points to run community focused actions and operations. Now growing to become much more than a simple bot, this application has been rewritten to be modular and made open source. We have already created modules for YouTube, Twitch, Discord, Messenger, Dialogflow, and a few others, but we ain't finished there. We want to continue to provide users with the tools they require, which includes goals to achieve website builders, development tools, game integrations and publicly accessible API's for all actions and endpoints...
+**`.github/workflows/issues.yml`**
+- Ensure Labels - When `/labels` is commented will add all labels from `.github/labels.json`
+- Assign to project - When new, assigns to project `1` (DevOps). When label `Type - Bug` assigns to project `2` (Issues)
+- Create a branch - Creates branches from `development` and posts comment with the branch attached. Following rules apply:
+    - All branches will be created with the name {issue.number}-{issue.title}
+    - Labels are used to define branch types
+    - `Type - Chore, Feature, Enhancement, Maintenance, Refactor, Style, Optimisation & Bug` will be created with the appropriate prefix
+    - `Type: Discussion, Question, Revert` will automatically be skipped
+    - Anything not already defined will be created with the prefix `issue/`
+- Revert Commits - When `/revert {commit id}` is commented will automatically revert that commit
+- CLA Assistant - When a Pull Request has the comment `/recheckcla` or the CLA acknowledge message, will run CLA checks to ensure contributor has signed the CLA.
+- Always Run - This job is used to prevent the workflow to fail when all other jobs are skipped.
 
-#### Why use it over other options?
 
-We are aware of other options which you could use instead of our application, such as xxx and yyyy, however we believe, that our system with the support of our community could be more powerful and easier to use.
+**`.github/workflows/projects.yml`**
+- Automatically apply labels based on the configuration in `.github/card-labeler.yml`
 
-#### I'm not a developer, can I use SCAA?
 
-Yes, this project is developed so that all level of users can use it, with versions pre-packaged as well as simple CLI tools, we believe we have created the simplest project to use for users who want to create custom applications.
+**`.github/workflows/pullrequests.yml`**
+- Assign to project - When new pull request, assign to project `1`(DevOps)
+- Semantic Title - Ensures that the title of the pull request follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) standard.
+- Labeller - Automatically labels pull requests with the matching `Type - {type}` label based on branch path. This matches the previously setup `Create a branch` found in the issues workflow
+- Rebase - When `/rebase` automatically rebases the branch (Not fully tested)
+- Conflict Check - Checks the current pull request against other open pull requests for conflicts
+- Pull Request Size - Counts the number of lines changed and adds/removes labels
+- CLA Assistant - Checks the contributor has signed the CLA before the commit is merged
+- Work In Progress - Blocks merge if the title contains `WIP` (Works best when included within the branch protection rules with `Include Administrators`)
 
-We also have started work on an hosted version, with more features pre-built into the application. This allows our users to experience Smartcloud at it's full potential without having complex setups.
 
-#### Where is the official support & documentation?
+**`.github/workflows/push.yml`**
+- Invite - Invites successful contributors to organisation team "community"
+- Update Release Draft - Updates the release draft based on config in `.github/release-drafter.yml` (This is our basic changelog generator - New one coming soon)
 
-All our official documentation is powered by markdown and can be located within the `@smartcloud/app/wiki` directory or can be found online at [https://docs.smartcloud.gg/](https://docs.smartcloud.gg/)
 
-## The Specifications
+**`.github/workflows/cron.yml`**
+- Stale - Marks stale issues & Pull requests after 30 days, followed by closing them after another 5 days.
 
-Yeah, this is the boring bit, "What can you do", and our answer will always be "whatever you can imagine" because we build this application to be fully extendable, and even encourage it using our online package sharing tools built into our command line and user interfaces.
 
-## Getting Started
+## Bots & External Applications
 
-### Installation
+**`.github/dependabot.yml`**
+- APP URL: https://dependabot.com/
+- npm - Checks NPM packages for updates daily at 0200 UTC and labels pull requests according to config.
+- gitactions - Checks gitactions packages for updates daily at 0200 UTC and labels pull requests according to config.
 
-#### Automatic installation
 
-We have built a automatic installation system to ensure speed and simplicity. This installer will guide you through all the options of SCAA, and automatically install all dependencies, modules, templates and much more.
+**`.github/first-timers.yml`**
+- APP URL: https://github.com/hoodiehq/first-timers-bot
+- Create beautiful issues for first-time Open Source contributors – automagically ✨ based on hidden branches.
 
-Simply install our command line interface using:
 
-```bash
-npm i -g @smartcloud/cli
-```
-
-Once installed, run the command
-
-```bash
-smartcloud install
-```
-
-You can read more about our automatic installation options here:
-
-#### Manual installation
-
-{% hint style="danger" %}
-_**HIGHLY NOT RECOMMENDED - THIS TAKES 10X LONGER TO COMPLETE**_
-{% endhint %}
-
-We haven't actually written this section yet, please come back soon...
-
-### Contributing
-
-{% page-ref page="getting-started/contributing/" %}
-
-### Licensing
-
-We originally designed this application to be completely closed-source, therefore it was built with a license system integrated. When we decided to go open-source, rather then delete the license system, we simply made the license free to purchase and added a signup into our installer, while this license exists, it is purely used to track users, provide support and operational assistance to users who need it.
-
-{% hint style="danger" %}
-However, with this said, users who choose not to register a license with us, will not receive support outside our forums and Gitlab support pages.
-{% endhint %}
+**`.all-contributorsrc`**
+- APP URL: https://github.com/all-contributors/all-contributors-bot
+- The @all-contributors bot automatically adds contributor acknowledgements according to the all-contributors specification
 
