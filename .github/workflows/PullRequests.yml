@@ -132,7 +132,7 @@ jobs:
         with:
           path-to-signatures: '.github/cla.json'
           path-To-cladocument: 'https://github.com/${{github.repository}}/docs/getting-started/contributing/cla.md'
-          branch: ${{github.ref}}
+          branch: ${{github.head_ref}}
           label: true
           whitelist: bot*
 
