@@ -1,2 +1,13 @@
+# Enable / Disable workflows
 claEnabled: true
-claPush: github.head_ref
+periodicLabeler: true
+stale: true
+labelTitle: true
+labelSponsor: true
+assignProjects: true
+
+
+# Assign projects config
+DevOps: 1
+Issues: 2
+ComOps: 3
