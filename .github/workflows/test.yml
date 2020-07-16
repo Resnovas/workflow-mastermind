@@ -16,7 +16,7 @@ jobs:
       run: |
         echo ${{ env.claEnabled }}
         echo ${{env.claPush}}
-        if [${{env.claPush}} == 'github.head_ref']; then echo ::set-env name=test::${{github.head_ref}} else echo ::set-env name=test::something fi
+        if [ ${{env.claPush}} == 'github.head_ref' ]; then echo ::set-env name=claBranch::${{github.head_ref}} ; else echo ::set-env name=test::${{env.claPush}} ; fi
     - name: Dump if
       if: ( ${{ success() }} && ${{env.claEnabled}} == true )
       run: |
