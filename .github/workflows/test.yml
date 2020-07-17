@@ -29,6 +29,7 @@ jobs:
         echo if statement worked
         echo ${{env.test}}
 
+
   TestAfter:
     name: tests if env exists
     runs-on: ubuntu-latest
