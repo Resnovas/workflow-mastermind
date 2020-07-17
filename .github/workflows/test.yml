@@ -6,6 +6,7 @@ on:
 jobs:
   TestWitout:
     name: tests if env exists
+    runs-on: ubuntu-latest
     steps:
       - run: echo ${{env.claPush}}
 
@@ -30,5 +31,6 @@ jobs:
 
   TestAfter:
     name: tests if env exists
+    runs-on: ubuntu-latest
     steps:
       - run: echo ${{env.claPush}}
