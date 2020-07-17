@@ -6,7 +6,8 @@ on:
 jobs:
   TestWitout:
     name: tests if env exists
-    run: echo ${{env.claPush}}
+    steps:
+      - run: echo ${{env.claPush}}
 
   testEnv:
     name: Test the env loads properly
@@ -29,4 +30,5 @@ jobs:
 
   TestAfter:
     name: tests if env exists
-    run: echo ${{env.claPush}}
+    steps:
+      - run: echo ${{env.claPush}}
