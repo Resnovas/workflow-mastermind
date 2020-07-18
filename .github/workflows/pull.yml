@@ -132,6 +132,7 @@ jobs:
         uses: eps1lon/actions-label-merge-conflict@releases/1.x
         with:
           dirtyLabel: ${{env.conflictMasterDirty}}
+          removeOnDirtyLabel: ${{env.conflictMasterDirty}}
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
 
   auto-approve:
