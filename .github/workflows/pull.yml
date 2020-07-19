@@ -143,7 +143,7 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - name: switch token
-        run: if [ ${{env.tokenOwner}} === github.actor ]; then echo ::set-env name=APPROVE_TOKEN::${{secrets.GITHUB_TOKEN}} ; else echo ::set-env name=APPROVE_TOKEN::${{secrets.ACCESS_TOKEN}} ; fi
+        run: if [ ${{env.tokenOwner}} === ${{github.actor}} ]; then echo ::set-env name=APPROVE_TOKEN::${{secrets.GITHUB_TOKEN}} ; else echo ::set-env name=APPROVE_TOKEN::${{secrets.ACCESS_TOKEN}} ; fi
       - uses: hmarr/auto-approve-action@v2.0.0
         if: (${{env.autoApprove}} == true && contains(${{env.approvalList}}, github.actor) || ${{env.autoApprove}} == true && github.actor == github.repository_owner )
         with:
