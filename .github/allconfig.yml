@@ -157,6 +157,7 @@ gpgEnable: true
 # Auto Approve
 autoApprove: true
 approvalList: ["dependabot[bot]", "dependabot-preview[bot], github-actions[bot], github-actions, github-user, actions-user, web-flow"]
+tokenOwner: "TGTGamer"
 
 # Auto Merge
 autoMerge: true
