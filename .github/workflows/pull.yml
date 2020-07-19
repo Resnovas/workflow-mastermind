@@ -147,11 +147,11 @@ jobs:
           if [ ${{github.actor}} === ${{env.tokenOwner}} ]; then TOKEN="${{ secrets.ACCESS_TOKEN }}" echo ::add-mask::$TOKEN ; else TOKEN="${{ secrets.GITHUB_TOKEN }}" echo ::add-mask::$TOKEN ; fi echo "::set-env name=APPROVE_TOKEN::$TOKEN"
       - run: |
           echo $TOKEN
-          echo ${{APPROVE_TOKEN}}
+          echo ${{env.APPROVE_TOKEN}}
       - uses: hmarr/auto-approve-action@v2.0.0
         if: (${{env.autoApprove}} == true && contains(${{env.approvalList}}, github.actor) || ${{env.autoApprove}} == true && github.actor == github.repository_owner )
         with:
-          github-token: "${{ secrets.APPROVE_TOKEN }}"
+          github-token: "${{ env.APPROVE_TOKEN }}"
 
   automerge:
     needs:
