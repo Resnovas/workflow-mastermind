@@ -16,7 +16,7 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - uses: github/issue-labeler@v2.2
-        if: ${{env.labelTitle}} == true
+        if: env.labelTitle == true
         with:
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
           configuration-path: ${{env.labelTitlePath}}
@@ -50,14 +50,14 @@ jobs:
       - run: if [ ${{env.useOrg}} == true ]; then echo ::set-env name=projectPath::"org/${{github.repository_owner}}" ; else echo ::set-env name=projectPath::"${{github.repository}}" ; fi
       - name: Assign NEW issues to project DevOps
         uses: docker://takanabe/github-actions-automate-projects:v0.0.1
-        if: ( github.event.action == 'opened' && ${{env.assignProjects}} == true )
+        if: github.event.action == 'opened' && env.assignProjects == true
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_PROJECT_URL: https://github.com/${{env.projectPath}}/projects/${{env.DevOps}}
           GITHUB_PROJECT_COLUMN_NAME: ${{env.DevOpsColumn}}
       - name: Assign NEW bugs to project bugs
         uses: docker://takanabe/github-actions-automate-projects:v0.0.1
-        if: ( contains(github.event.issue.labels.*.name, 'Type - Bug') && ${{env.assignProjects}} == true )
+        if: contains(github.event.issue.labels.*.name, 'Type - Bug') && env.assignProjects == true
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_PROJECT_URL: https://github.com/${{env.projectPath}}/projects/${{env.Issues}}
@@ -73,7 +73,7 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - name: Create Issue Branch
-        if: ${{env.issueBranch}} == true
+        if: env.issueBranch == true
         uses: robvanderleek/create-issue-branch@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

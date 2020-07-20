@@ -14,10 +14,10 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - name: Checkout
-        if: ${{env.ensureLabels}} == true
+        if: env.ensureLabels == true
         uses: actions/checkout@v2.3.1
       - name: Run Labeler
-        if: ${{env.ensureLabels}} == true
+        if: env.ensureLabels == true
         uses: crazy-max/ghaction-github-labeler@v2
         with:
           yaml_file: ${{env.ensureLabelsConfig}}
@@ -35,7 +35,7 @@ jobs:
       - run: if [ ${{env.inclusiveOrg}} === 'owner' ]; then echo ::set-env name=inclusiveorg::${{github.repository_owner}} ; else echo ::set-env name=inclusiveorg::${{env.inclusiveOrg}} ; fi
       - name: Invite contributor to the organization
         uses: lekterable/inclusive-organization-action@v1.1.0
-        if: ${{env.inclusiveEnabled}} == true
+        if: env.inclusiveEnabled == true
         with:
           organization: ${{env.inclusiveorg}}
           team: ${{env.inclusiveTeam}}
@@ -53,7 +53,7 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - uses: release-drafter/release-drafter@v5
-        if: ${{env.releaseDrafter}} == true
+        if: env.releaseDrafter == true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -66,34 +66,34 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - name: Import GPG key
-        if: ${{env.changelog}} == true && ${{env.gpgEnable}}
+        if: env.changelog == true && env.gpgEnable}}
         id: import_gpg
         uses: crazy-max/ghaction-import-gpg@v2
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
       - uses: peterjgrainger/action-create-branch@2.0.1
-        if: ${{env.changelog}} == true
+        if: env.changelog == true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: ${{env.changelogBranch}}-${{github.run_id}}
       - name: GPG user IDs
-        if: ${{env.changelog}} == true
+        if: env.changelog == true
         run: |
           echo "fingerprint: ${{ steps.import_gpg.outputs.fingerprint }}"
           echo "keyid:       ${{ steps.import_gpg.outputs.keyid }}"
           echo "name:        ${{ steps.import_gpg.outputs.name }}"
           echo "email:       ${{ steps.import_gpg.outputs.email }}"
       - name: "Check-out"
-        if: ${{env.changelog}} == true
+        if: env.changelog == true
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{env.changelogBranch}}-${{github.run_id}}
           fetch-depth: ${{env.changelogFetchDepth}}
       - uses: heinrichreimer/github-changelog-generator-action@v2.1.1
-        if: ${{env.changelog}} == true
+        if: env.changelog == true
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           pullRequests: ${{env.pullRequests}}
@@ -108,7 +108,7 @@ jobs:
       - run: if [ ${{env.gpgEnable}} == false ]; then echo ::set-env name=commitName::${{ env.changelogName }} ; echo ::set-env name=commitEmail::${{ env.changelogEmail }} ; else echo ::set-env name=commitName::${{ steps.import_gpg.outputs.name }} ; echo ::set-env name=commitEmail::${{ steps.import_gpg.outputs.email }} ; fi
       - name: Commit files
         id: commit
-        if: ${{env.changelog}} == true
+        if: env.changelog == true
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: ${{env.changelogCommitMessage}}
@@ -119,13 +119,13 @@ jobs:
           push_options: ${{env.changelogPush_options}}
       - name: Delete branch
         uses: dawidd6/action-delete-branch@v3
-        if: ${{steps.commit.outputs.changes_detected}} == false && ${{env.changelog}} == true
+        if: steps.commit.outputs.changes_detected == false && env.changelog == true
         with:
           github_token: ${{github.token}}
           branches: ${{env.changelogBranch}}-${{github.run_id}}
       - name: pull-request
         uses: repo-sync/pull-request@v2
-        if: ${{steps.commit.outputs.changes_detected}} == true && ${{env.changelog}} == true
+        if: steps.commit.outputs.changes_detected == true && env.changelog == true
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           source_branch: ${{env.changelogBranch}}-${{github.run_id}}

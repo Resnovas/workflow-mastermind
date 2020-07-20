@@ -13,7 +13,7 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - uses: docker://docker.io/ilyam8/periodic-pr-labeler:v0.1.1
-        if: ${{env.periodicLabeler}} == true
+        if: env.periodicLabeler == true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
@@ -26,10 +26,8 @@ jobs:
       - uses: technote-space/load-config-action@v1
         with:
           CONFIG_FILENAME: allconfig.yml
-      - run: |
-          echo "${{env.days-before-close}}"
       - uses: actions/stale@v3.0.8
-        if: ${{env.stale}} == true
+        if: env.stale == true
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           stale-issue-message: ${{env.stale-issue-message}}

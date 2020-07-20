@@ -12,7 +12,7 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - name: Adjust Lables
-        if: ${{env.labelCards}} == true
+        if: env.labelCards == true
         uses: technote-space/auto-card-labeler@v1
         with:
           CONFIG_FILENAME: ${{env.labelCardsConfig}}

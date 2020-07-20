@@ -44,13 +44,13 @@ jobs:
         with:
           ref: ${{github.head_ref}}
       - id: Claim
-        if: ( ${{env.commandsEnabled}} == true &&  ${{env.claim}} == true )
+        if: ( env.commandsEnabled == true &&  env.claim == true )
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.github_token }}
           labels: "CommOps - Accepted"
       - name: Assign claimed issues to ComOps
-        if: ( ${{ success() }} && ${{env.commandsEnabled}} == true &&  ${{env.claim}} == true )
+        if: success() && env.commandsEnabled == true && env.claim == true )
         uses: docker://takanabe/github-actions-automate-projects:v0.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
