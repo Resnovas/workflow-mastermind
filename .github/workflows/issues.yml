@@ -32,7 +32,7 @@ jobs:
         with:
           CONFIG_FILENAME: allconfig.yml
       - uses: JasonEtco/is-sponsor-label-action@v1
-        if: ${{env.labelSponsor}} == true
+        if: env.labelSponsor == true
         with:
           label: ${{env.sponsorLabel}}
         env:
@@ -50,14 +50,14 @@ jobs:
       - run: if [ ${{env.useOrg}} == true ]; then echo ::set-env name=projectPath::"org/${{github.repository_owner}}" ; else echo ::set-env name=projectPath::"${{github.repository}}" ; fi
       - name: Assign NEW issues to project DevOps
         uses: docker://takanabe/github-actions-automate-projects:v0.0.1
-        if: github.event.action == 'opened' && env.assignProjects == true
+        if: ( github.event.action == 'opened' && env.assignProjects == true )
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_PROJECT_URL: https://github.com/${{env.projectPath}}/projects/${{env.DevOps}}
           GITHUB_PROJECT_COLUMN_NAME: ${{env.DevOpsColumn}}
       - name: Assign NEW bugs to project bugs
         uses: docker://takanabe/github-actions-automate-projects:v0.0.1
-        if: contains(github.event.issue.labels.*.name, 'Type - Bug') && env.assignProjects == true
+        if: ( contains(github.event.issue.labels.*.name, 'Type - Bug') && env.assignProjects == true )
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           GITHUB_PROJECT_URL: https://github.com/${{env.projectPath}}/projects/${{env.Issues}}
