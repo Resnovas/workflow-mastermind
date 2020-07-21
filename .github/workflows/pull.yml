@@ -124,6 +124,18 @@ jobs:
         if: (${{env.autoApprove}} == true && contains(${{env.approvalList}}, github.actor) || ${{env.autoApprove}} == true && github.actor == github.repository_owner )
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"      
+  
+  automerge:
+    needs:
+      - wip
+      - semantic
+      - labeler
+      - approval
+    runs-on: ubuntu-latest
+    steps:
+      - uses: technote-space/load-config-action@v1
+        with:
+          CONFIG_FILENAME: allconfig.yml
       - name: automerge
         if: ${{env.autoMerge}} == true
         uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
