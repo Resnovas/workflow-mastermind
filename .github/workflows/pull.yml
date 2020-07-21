@@ -81,7 +81,7 @@ jobs:
           configuration-path: ${{env.labelPathConfig}}
           repo-token: "${{ secrets.GITHUB_TOKEN }}"
       - uses: JasonEtco/is-sponsor-label-action@v1
-        if: ${{env.labelSponsor}} == true
+        if: github.event.action == 'opened' && ${{env.labelSponsor}} == true
         with:
           label: Sponsor Request ❤️
         env:
