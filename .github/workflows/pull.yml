@@ -7,11 +7,6 @@ on:
     types:
       - opened
       - edited
-      - assigned
-      - synchronize
-      - reopened
-      - unlabeled
-      - labeled
   pull_request_review:
     types:
       - submitted
