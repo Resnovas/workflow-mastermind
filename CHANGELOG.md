@@ -12,7 +12,6 @@
 **Merged pull requests:**
 
 - feat: profanity check [\#76](https://github.com/Videndum/Universal-GitAction-Workflows/pull/76)
-- feat: publish release [\#75](https://github.com/Videndum/Universal-GitAction-Workflows/pull/75)
 - feat: pull approval [\#74](https://github.com/Videndum/Universal-GitAction-Workflows/pull/74)
 - revert: table of contents [\#68](https://github.com/Videndum/Universal-GitAction-Workflows/pull/68)
 - docs: update contribution guidelines [\#64](https://github.com/Videndum/Universal-GitAction-Workflows/pull/64)
