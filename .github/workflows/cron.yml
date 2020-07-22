@@ -59,15 +59,22 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{env.autoBranchPrefix}}${{env.autoBranch}}
           fetch-depth: 0
+      - name: Read package.json
+        id: package
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: .github/workflows/workflow-version.txt
       - run: |
           git clone https://github.com/Videndum/Universal-GitAction-Workflows.git .github/.tmp
           cd .github/.tmp || exit
           latestTag=$(git describe --tags --abbrev=0 --match v*)
           git checkout "$latestTag"
-          cd ../.. || exit
-          echo ::set-env name=latestTag::"$latestTag"
-          cp -f .github/.tmp/.github/allconfig.yml .github/allconfig.yml 2>> template-sync-log.txt
-          if [ ${{env.gpgEnable}} == false ]; then echo ::set-env name=commitName::${{ env.changelogName }} ; echo ::set-env name=commitEmail::${{ env.changelogEmail }} ; else echo ::set-env name=commitName::${{ steps.import_gpg.outputs.name }} ; echo ::set-env name=commitEmail::${{ steps.import_gpg.outputs.email }} ; fi
+          if [ "${{ steps.package.outputs.content }}" == "$latestTag" ]; then
+            cd ../.. || exit
+            echo ::set-env name=latestTag::"$latestTag"
+            cp -f .github/.tmp/.github/allconfig.yml .github/allconfig.yml 2>> template-sync-log.txt
+            if [ ${{env.gpgEnable}} == false ]; then echo ::set-env name=commitName::${{ env.changelogName }} ; echo ::set-env name=commitEmail::${{ env.changelogEmail }} ; else echo ::set-env name=commitName::${{ steps.import_gpg.outputs.name }} ; echo ::set-env name=commitEmail::${{ steps.import_gpg.outputs.email }} ; fi
+          fi
       - name: Commit Config
         id: commitConfig
         uses: stefanzweifel/git-auto-commit-action@v4
@@ -107,3 +114,4 @@ jobs:
         with:
           github_token: ${{github.token}}
           branches: ${{env.autoBranchPrefix}}${{env.autoBranch}}
+  
