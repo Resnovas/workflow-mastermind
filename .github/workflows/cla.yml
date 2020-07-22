@@ -40,4 +40,5 @@ jobs:
           pr_title: "chore: CLA Management"
           pr_body: "Automatic Merge"
           pr_label: "skip-changelog,automerge"
+        continue-on-error: true
 
