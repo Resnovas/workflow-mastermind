@@ -8,9 +8,6 @@ on:
       - opened
       - edited
       - synchronize
-  pull_request_review:
-    types:
-      - submitted
 
 jobs:
   # Automatically blocks WIP pull request based on the title
@@ -93,7 +90,11 @@ jobs:
           configuration-path: ${{env.labelBranchConfig}}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
+      - name: Run pull request stats
+        uses: flowwer-dev/pull-request-stats@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+        continue-on-error: true
 
   # Automatically approves
   approval:
@@ -125,10 +126,7 @@ jobs:
         if: (${{env.autoApprove}} == true && contains(${{env.autoWhitelist}}, github.actor) || ${{env.autoApprove}} == true && github.actor == github.repository_owner )
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}    
-      - name: Run pull request stats
-        uses: flowwer-dev/pull-request-stats@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+
   
   automerge:
     needs:
