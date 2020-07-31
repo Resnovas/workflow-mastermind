@@ -2,7 +2,7 @@ name: Issue Management
 
 on:
   issues:
-    types: [opened, edited, reopened, assigned, labeled]
+    types: [opened, edited, reopened, assigned]
   issue_comment:
     types: [created, edited]
 
