@@ -70,7 +70,7 @@ jobs:
           fi ; 
 
           if [ "${{steps.release.outputs.tag_name}}" != "" ]; 
-          then echo "${{steps.release.outputs.tag_name}}" > workflow-version.txt ; echo ::set-env name=versioning::true ;
+          then echo "${{steps.release.outputs.tag_name}}" > .github/workflow-version.txt ; echo ::set-env name=versioning::true ;
           fi;
       - name: Commit files
         id: commit
