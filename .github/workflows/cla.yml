@@ -30,7 +30,7 @@ jobs:
           path-To-cladocument: "https://github.com/${{github.repository}}/${{env.claDocs}}"
           branch: ${{env.autoBranchPrefix}}${{env.autoBranch}}_CLA
           label: ${{env.claLabel}}
-          whitelist: ${{env.autoWhitelist}}
+          whitelist: join(${{env.autoWhitelist}})
       - name: pull-request
         uses: repo-sync/pull-request@v2
         with:
