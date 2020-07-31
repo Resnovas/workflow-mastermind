@@ -9,7 +9,7 @@
 # Branch for automation
 autoBranch: "auto-update"
 autoBranchPrefix: "chore/"
-autoWhitelist: ["dependabot[bot]", "dependabot-preview[bot], github-actions[bot], github-actions, github-user, actions-user, web-flow, VidendumStudios"]
+autoWhitelist: ["dependabot[bot]","dependabot-preview[bot]","github-actions[bot]","github-actions","github-user","actions-user","web-flow","VidendumStudios"]
 autoDestination: "master"
 autoBody: ":crown: *An automated PR*"
 autoLabels: "skip-changelog,automerge"
@@ -175,6 +175,7 @@ releasePatch: 'Versioning - Patch'
 
 # Automatic Changelog
 changelog: true # enable / disable
+changelogFile: 'docs/information/changelog.md'
 pullRequests: true
 prWoLabels: "skip-changelog"
 breakingLabels: "Versioning - BREAKING"
