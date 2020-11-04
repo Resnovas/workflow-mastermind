@@ -24,7 +24,7 @@ jobs:
       #   with:
       #     repo-token: ${{ secrets.GITHUB_TOKEN }}
       - name: Work in progress status
-        uses: wip/action@v1.0.0
+        uses: wip/action@v1.1.0
         if: ${{env.wip_enabled}} == true
 
   # Ensures semantic titles to ensure semantic is achieved when merge is squashed
@@ -41,7 +41,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Check title
         if: ${{env.semantic_enabled}} == true
-        uses: aslafy-z/conventional-pr-title-action@v2.2.0
+        uses: aslafy-z/conventional-pr-title-action@v2.2.3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -164,7 +164,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: automerge
         if: ${{env.merge_enabled}} == true
-        uses: 'pascalgn/automerge-action@v0.9.0'
+        uses: 'pascalgn/automerge-action@v0.12.0'
         env:
           GITHUB_TOKEN: '${{ secrets.BOT_TOKEN }}'
           MERGE_LABELS: ${{env.merge_labels}}
