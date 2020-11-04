@@ -89,13 +89,13 @@ jobs:
         continue-on-error: true
 
       # Sponsor labels
-      - uses: JasonEtco/is-sponsor-label-action@v1
-        if: github.event.action == 'opened' && ${{env.sponsor_enabled}} == true
-        with:
-          label: ${{env.sponsor_label}}
-        env:
-          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
-        continue-on-error: true
+      # - uses: JasonEtco/is-sponsor-label-action@v1
+      #   if: github.event.action == 'opened' && ${{env.sponsor_enabled}} == true
+      #   with:
+      #     label: ${{env.sponsor_label}}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+      #   continue-on-error: true
       # - uses: actions/labeler@v2
       #   if: ${{env.path_enabled}} == true
       #   with:
