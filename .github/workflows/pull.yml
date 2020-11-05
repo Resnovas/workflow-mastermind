@@ -57,7 +57,7 @@ jobs:
       - name: Super Labeller
         uses: Videndum/super-labeler-action@1.0.1
         with:
-          GITHUB_TOKEN: '${{ secrets.ACCESS_TOKEN }}'
+          GITHUB_TOKEN: '${{ secrets.BOT_TOKEN }}'
       # Label size based (soon to be merged with super labeler)
       - uses: actions-ecosystem/action-size@v2
         if: ${{env.size_enabled}} == true
