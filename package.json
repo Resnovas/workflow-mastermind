@@ -23,7 +23,7 @@
   },
   "keywords": [],
   "scripts": {
-    "git": "git add . && git commit -m \"chore: Bump Version & Changelog from @videndum/action-masterminds\""
+    "git": "git add . && git commit -m \"chore: Bump Version & Changelog from @videndum/action-masterminds\" -s && git push"
   },
   "devDependencies": {
     "prettier-plugin-organize-imports": "^2.3.3",
